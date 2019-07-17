@@ -7,6 +7,8 @@ import java.util.TimeZone;
 
 public class DaoFactory {
 	
+	private static DaoFactory instance = null;
+	
 	private String url;
     private String username;
     private String password;
@@ -18,13 +20,18 @@ public class DaoFactory {
     }
 
     public static DaoFactory getInstance() {
+    	
+    	if(instance != null) {
+    		return instance;
+    	}
+    	
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
 
         }
 
-        DaoFactory instance = new DaoFactory(
+        instance = new DaoFactory(
                 "jdbc:mysql://localhost:3306/amazon?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
         return instance;
     }

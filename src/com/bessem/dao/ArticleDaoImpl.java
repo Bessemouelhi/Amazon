@@ -40,8 +40,32 @@ public class ArticleDaoImpl implements ArticleDao {
 
 	@Override
 	public Article getByRef(String ref) {
-		// TODO Auto-generated method stub
-		return null;
+		Article article = null;
+        Connection connexion = null;
+        PreparedStatement statement = null;
+        ResultSet resultat = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            statement = connexion.prepareStatement("SELECT reference, designation, prix FROM article where reference = ?;");
+            statement.setString(1, ref);
+            resultat = statement.executeQuery();
+            
+            while (resultat.next()) {
+                String refe = resultat.getString("reference");
+                String des = resultat.getString("designation");
+                double prix = resultat.getDouble("prix");
+
+                article = new Article();
+                article.setReference(refe);
+                article.setDesignation(des);
+                article.setDecimal(prix);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return article;
 	}
 
 	@Override
@@ -72,6 +96,35 @@ public class ArticleDaoImpl implements ArticleDao {
             e.printStackTrace();
         }
         return listArticle;
+	}
+
+	@Override
+	public void update(Article article) {
+		Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            
+            preparedStatement = connexion.prepareStatement("UPDATE article" + 
+            		" SET designation = ?," + 
+            		" prix = ?" + 
+            		" WHERE reference = ?");
+            preparedStatement.setString(1, article.getDesignation());
+            preparedStatement.setDouble(2, article.getDecimal());
+            preparedStatement.setString(3, article.getReference());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+	}
+
+	@Override
+	public void delete(String ref) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

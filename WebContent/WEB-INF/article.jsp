@@ -16,30 +16,82 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<c:if test="${ !empty sessionScope.user }">
-<p><i>Connecté : <c:out value="${ sessionScope.user }" /></i></p>
-</c:if>
+
+	<c:choose>
+		<c:when test="${ !empty art }">
+			<c:set var="btnSubmit" value="Modifier" scope="page" />
+		</c:when>
+		<c:otherwise>
+			<c:set var="btnSubmit" value="Ajouter" scope="page" />
+		</c:otherwise>
+	</c:choose>
+	
+	<c:if test="${ !empty sessionScope.user }">
+		<p>
+			<i>Connecté : <c:out value="${ sessionScope.user }" /></i>
+		</p>
+	</c:if>
+	
 	<div class="container">
-		<h2>Ajouter un article</h2>
+		<h2><c:out value="${ btnSubmit }" /> un article</h2>
 		<form method="POST" action="article">
 			<div class="form-group">
-				<label for="ref">Référence:</label>
-				<input type="ref" class="form-control" id="ref" placeholder="" name="ref">
+				<label for="ref">Référence:</label> <input type="ref"
+					class="form-control" id="ref" placeholder="" name="ref"
+					value="${ art.reference }">
 			</div>
 			<div class="form-group">
-				<label for=des>Designation:</label>
-				<input type="des" class="form-control" id="des" placeholder="" name="des">
+				<label for=des>Designation:</label> <input type="des"
+					class="form-control" id="des" placeholder="" name="des"
+					value="${ art.designation }">
 			</div>
 			<div class="form-group">
-				<label for=des>Prix:</label>
-				<input type="prix" class="form-control" id="prix" placeholder="" name="prix">
+				<label for=des>Prix:</label> <input type="prix" class="form-control"
+					id="prix" placeholder="" name="prix" value="${ art.decimal }">
 			</div>
-			<button type="submit" class="btn btn-primary">Ajouter</button>
+			<!-- <button type="submit" class="btn btn-primary" name="submitType" value="submitType">
+				<c:out value="${ btnSubmit }" />
+			</button> -->
+			<div class="form-group">
+				<input type="submit" class="form-control"
+				 name="submitType" value="${ btnSubmit }">
+			</div>
 		</form>
 	</div>
-	<p>${ message }</p>
-	<p>${ ref }</p>
-	<p>${ des }</p>
-	<p>${ prix }</p>
+	<br>
+	<div class="container jumbotron">
+		<p>${ message }</p>
+		<p>${ ref }</p>
+		<p>${ des }</p>
+		<p>${ prix }</p>
+		<p>submitType : ${ submitType }</p>
+	</div>
+
+
+	<br>
+	<hr>
+	<br>
+
+	<div class="container">
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Référence</th>
+					<th>Désignation</th>
+					<th>Prix</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${ articles }" var="article">
+					<tr>
+						<td><c:out value="${ article.reference }" /></td>
+						<td><c:out value="${ article.designation }" /></td>
+						<td><c:out value="${ article.decimal }" /></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+
 </body>
 </html>
