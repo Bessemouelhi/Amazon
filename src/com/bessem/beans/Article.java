@@ -2,7 +2,7 @@ package com.bessem.beans;
 
 import java.io.Serializable;
 
-public class Article implements Serializable {
+public class Article {
 	
 	/*(reference varchar(30) NOT NULL,
 			designation varchar(200) NOT NULL,
@@ -10,7 +10,7 @@ public class Article implements Serializable {
 	
 	private String reference;
 	private String designation;
-	private double decimal;
+	private double prix;
 
 	public String getDesignation() {
 		return designation;
@@ -21,15 +21,21 @@ public class Article implements Serializable {
 	}
 
 	public double getDecimal() {
-		return decimal;
+		return prix;
 	}
 
 	public void setDecimal(double decimal) {
-		this.decimal = decimal;
+		this.prix = decimal;
 	}
 
 	public String getReference() {
 		return reference;
 	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+	
+	
 
 }

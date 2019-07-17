@@ -49,27 +49,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>AT980</td>
-        <td>Smart Phone GT</td>
-        <td>450.00</td>
-        <td><a class="text-danger" href="deleteArticle">Supprimer</a></td>
-        <td><a href="editArticle">Edit</a></td>
-      </tr>
-      <tr>
-        <td>HP675</td>
-        <td>Ordinateur HP</td>
-        <td>800.00</td>
-        <td><a class="text-danger" href="deleteArticle">Supprimer</a></td>
-        <td><a href="editArticle">Edit</a></td>
-      </tr>
-      <tr>
-        <td>SMG10</td>
-        <td>Samsung Galaxy S10</td>
-        <td>900.00</td>
-        <td><a class="text-danger" href="deleteArticle">Supprimer</a></td>
-        <td><a href="editArticle">Edit</a></td>
-      </tr>
+	    <c:forEach items="${ articles }" var="article">
+		    <tr>
+	        <td><c:out value="${ article.reference }" /></td>
+	        <td><c:out value="${ article.designation }" /></td>
+	        <td><c:out value="${ article.decimal }" /></td>
+	        <td><a class="text-danger" href="deleteArticle">Supprimer</a></td>
+	        <td><a href="editArticle">Edit</a></td>
+	      </tr>
+		</c:forEach>
     </tbody>
   </table>
   </div>
