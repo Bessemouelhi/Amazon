@@ -40,7 +40,7 @@
 			<div class="form-group">
 				<label for="ref">Référence:</label> <input type="ref"
 					class="form-control" id="ref" placeholder="" name="ref"
-					value="${ art.reference }" <c:out value="${ disabled }" />>
+					value="${ art.reference }"><!-- <c:out value="${ disabled }" /> -->
 			</div>
 			<div class="form-group">
 				<label for=des>Designation:</label> <input type="des"
@@ -55,7 +55,7 @@
 				<c:out value="${ btnSubmit }" />
 			</button> -->
 			<div class="form-group">
-				<input type="submit" class="form-control"
+				<input type="submit" class="form-control btn btn-info btn-lg"
 				 name="submitType" value="${ btnSubmit }">
 			</div>
 		</form>

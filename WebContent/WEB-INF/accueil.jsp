@@ -56,7 +56,7 @@
 	        <td><c:out value="${ article.designation }" /></td>
 	        <td><c:out value="${ article.decimal }" /></td>
 	        <td><a class="text-danger" href="accueil?del=${ article.reference }">Supprimer</a></td>
-	        <td><a href="article?ref=AZ">Edit</a></td>
+	        <td><a href="article?ref=${ article.reference }">Edit</a></td>
 	      </tr>
 		</c:forEach>
     </tbody>
