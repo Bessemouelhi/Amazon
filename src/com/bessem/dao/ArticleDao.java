@@ -13,7 +13,7 @@ public interface ArticleDao {
 
 	void update(Article article) throws DaoException;
 	
-	void delete(String ref);
+	void delete(String ref) throws DaoException;
 	
 	List<Article> getAll() throws DaoException;
 
