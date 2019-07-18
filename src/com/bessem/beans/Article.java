@@ -32,7 +32,11 @@ public class Article {
 		return reference;
 	}
 
-	public void setReference(String reference) {
+	public void setReference(String reference) throws BeanException {
+		if (reference.length() > 30) {
+			throw new BeanException("La reference est trop grande ! (30 caractères maximum)");
+		}
+		
 		this.reference = reference;
 	}
 	

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bessem.beans.Article;
+import com.bessem.beans.BeanException;
 
 public class ArticleDaoImpl implements ArticleDao {
 	
@@ -19,7 +20,7 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
 	@Override
-	public void add(Article article) {
+	public void add(Article article) throws DaoException {
 		Connection connexion = null;
         PreparedStatement preparedStatement = null;
 
@@ -32,14 +33,30 @@ public class ArticleDaoImpl implements ArticleDao {
             preparedStatement.setDouble(3, article.getDecimal());
 
             preparedStatement.executeUpdate();
+            connexion.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                if (connexion != null) {
+                    connexion.rollback();
+                }
+            } catch (SQLException e2) {
+            }
+            throw new DaoException("Impossible de communiquer avec la base de données");
+        }
+        finally {
+            try {
+                if (connexion != null) {
+                    connexion.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de données");
+            }
         }
 		
 	}
 
 	@Override
-	public Article getByRef(String ref) {
+	public Article getByRef(String ref) throws BeanException, DaoException {
 		Article article = null;
         Connection connexion = null;
         PreparedStatement statement = null;
@@ -62,14 +79,29 @@ public class ArticleDaoImpl implements ArticleDao {
                 article.setDecimal(prix);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                if (connexion != null) {
+                    connexion.rollback();
+                }
+            } catch (SQLException e2) {
+            }
+            throw new DaoException("Impossible de communiquer avec la base de données");
+        }
+        finally {
+            try {
+                if (connexion != null) {
+                    connexion.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de données");
+            }
         }
         
         return article;
 	}
 
 	@Override
-	public List<Article> getAll() {
+	public List<Article> getAll() throws DaoException {
 		List<Article> listArticle = new ArrayList<Article>();
         Connection connexion = null;
         Statement statement = null;
@@ -93,13 +125,24 @@ public class ArticleDaoImpl implements ArticleDao {
                 listArticle.add(article);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Impossible de communiquer avec la base de données");
+        } catch (BeanException e) {
+            throw new DaoException("Les données de la base sont invalides");
+        }
+        finally {
+            try {
+                if (connexion != null) {
+                    connexion.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de données");
+            }
         }
         return listArticle;
 	}
 
 	@Override
-	public void update(Article article) {
+	public void update(Article article) throws DaoException {
 		Connection connexion = null;
         PreparedStatement preparedStatement = null;
 
@@ -115,8 +158,24 @@ public class ArticleDaoImpl implements ArticleDao {
             preparedStatement.setString(3, article.getReference());
 
             preparedStatement.executeUpdate();
+            connexion.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                if (connexion != null) {
+                    connexion.rollback();
+                }
+            } catch (SQLException e2) {
+            }
+            throw new DaoException("Impossible de communiquer avec la base de données");
+        }
+        finally {
+            try {
+                if (connexion != null) {
+                    connexion.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de données");
+            }
         }
 		
 	}

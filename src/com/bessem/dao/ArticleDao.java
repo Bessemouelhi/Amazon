@@ -3,17 +3,18 @@ package com.bessem.dao;
 import java.util.List;
 
 import com.bessem.beans.Article;
+import com.bessem.beans.BeanException;
 
 public interface ArticleDao {
 	
-	void add(Article article);
+	void add(Article article) throws DaoException;
 	
-	Article getByRef(String ref);
+	Article getByRef(String ref) throws BeanException, DaoException;
 
-	void update(Article article);
+	void update(Article article) throws DaoException;
 	
 	void delete(String ref);
 	
-	List<Article> getAll();
+	List<Article> getAll() throws DaoException;
 
 }

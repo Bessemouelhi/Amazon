@@ -34,6 +34,7 @@
 	
 	<div class="container">
 		<h2><c:out value="${ btnSubmit }" /> un article</h2>
+		<c:if test="${ !empty exception }"><h3 style="color:red;"><c:out value="${ exception }" /></h3></c:if>
 		<form method="POST" action="article">
 			<div class="form-group">
 				<label for="ref">Référence:</label> <input type="ref"

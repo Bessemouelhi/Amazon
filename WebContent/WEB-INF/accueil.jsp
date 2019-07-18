@@ -16,6 +16,7 @@
 
 	<div class="container">
 		<h2>Recherche d'articles</h2>
+		<c:if test="${ !empty exception }"><h3 style="color:red;"><c:out value="${ exception }" /></h3></c:if>
 		<form method="POST" action="accueil">
 			<div class="form-group">
 				<label for="ref">Référence:</label> 

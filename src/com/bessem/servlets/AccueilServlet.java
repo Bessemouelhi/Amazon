@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bessem.dao.ArticleDao;
+import com.bessem.dao.DaoException;
 import com.bessem.dao.DaoFactory;
 
 /**
@@ -28,7 +29,11 @@ public class AccueilServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("articles", articleDao.getAll());
+		try {
+			request.setAttribute("articles", articleDao.getAll());
+		} catch (DaoException e) {
+			request.setAttribute("exception", e.getMessage());
+		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 	}
 
