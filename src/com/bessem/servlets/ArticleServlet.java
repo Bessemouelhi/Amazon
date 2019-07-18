@@ -64,10 +64,10 @@ public class ArticleServlet extends HttpServlet {
 		String ref = request.getParameter("ref");
 		String des = request.getParameter("des");
 		double prix = 0;
-		
 		if (!request.getParameter("prix").equals(""))
 			prix = Double.parseDouble(request.getParameter("prix"));
 
+		// Vérif pour ajout ou modif
 		if (ref != null && des != null && prix > 0) {
 			// Création d'un objet Article
 			Article article = new Article();
