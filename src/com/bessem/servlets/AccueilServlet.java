@@ -2,7 +2,9 @@ package com.bessem.servlets;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +38,7 @@ public class AccueilServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
+			// On récupère la reference pour la suppression d'un article
 			String delRef = request.getParameter("del");
 			if (delRef != null)
 				articleDao.delete(delRef);
@@ -93,6 +96,25 @@ public class AccueilServlet extends HttpServlet {
 			request.setAttribute("articles", articles);
 		} catch (DaoException e) {
 			request.setAttribute("exception", e.getMessage());
+		}
+		
+		
+		// Filtre la liste d'article par référence ou par désignation
+		if (!ref.equals("")) {
+			List<Article> filteredArticleList = articles.stream()
+					.filter(article -> article.getReference()
+							.contains(ref))
+					.collect(Collectors.toList());
+			
+			request.setAttribute("articles", filteredArticleList);
+		}
+		else if (!des.equals("")) {
+			List<Article> filteredArticleList = articles.stream()
+					.filter(article -> article.getDesignation()
+							.contains(des))
+					.collect(Collectors.toList());
+			
+			request.setAttribute("articles", filteredArticleList);
 		}
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
