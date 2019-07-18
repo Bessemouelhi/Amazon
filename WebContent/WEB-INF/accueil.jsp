@@ -44,9 +44,9 @@
 	<table class="table table-striped">
     <thead class="thead-dark">
       <tr>
-        <th>Référence</th>
-        <th>Désignation</th>
-        <th>Prix</th>
+        <th><a href="accueil?sort=ref">Référence</a></th>
+        <th><a href="accueil?sort=des">Désignation</a></th>
+        <th><a href="accueil?sort=prix">Prix</a></th>
       </tr>
     </thead>
     <tbody>

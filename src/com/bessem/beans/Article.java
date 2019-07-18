@@ -1,8 +1,9 @@
 package com.bessem.beans;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
-public class Article {
+public class Article implements Comparable<Article> {
 	
 	/*(reference varchar(30) NOT NULL,
 			designation varchar(200) NOT NULL,
@@ -39,6 +40,33 @@ public class Article {
 		
 		this.reference = reference;
 	}
+
+	@Override
+	public int compareTo(Article art) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public static Comparator<Article> compareByRef = new Comparator<Article>() {
+	    @Override
+	    public int compare(Article o1, Article o2) {
+	        return o1.getReference().compareTo(o2.getReference());
+	    }
+	};
+	
+	public static Comparator<Article> compareByDes = new Comparator<Article>() {
+	    @Override
+	    public int compare(Article o1, Article o2) {
+	        return o1.getDesignation().compareTo(o2.getDesignation());
+	    }
+	};
+	
+	public static Comparator<Article> compareByPrix = new Comparator<Article>() {
+	    @Override
+	    public int compare(Article o1, Article o2) {
+	        return Double.compare(o1.getDecimal(), o2.getDecimal());
+	    }
+	};
 	
 	
 
