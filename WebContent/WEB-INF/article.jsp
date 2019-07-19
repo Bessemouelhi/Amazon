@@ -20,7 +20,7 @@
 	<c:choose>
 		<c:when test="${ !empty art }">
 			<c:set var="btnSubmit" value="Modifier" scope="page" />
-			<c:set var="disabled" value="disabled" scope="page" />
+			<c:set var="readonly" value="readonly" scope="page" />
 		</c:when>
 		<c:otherwise>
 			<c:set var="btnSubmit" value="Ajouter" scope="page" />
@@ -40,7 +40,7 @@
 			<div class="form-group">
 				<label for="ref">Référence:</label> <input type="ref"
 					class="form-control" id="ref" placeholder="" name="ref"
-					value="${ art.reference }"><!-- <c:out value="${ disabled }" /> -->
+					value="${ art.reference }" <c:out value="${ readonly }" />><!-- <c:out value="${ readonly }" /> -->
 			</div>
 			<div class="form-group">
 				<label for=des>Designation:</label> <input type="des"

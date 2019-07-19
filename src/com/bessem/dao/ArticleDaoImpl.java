@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
         try {
             connexion = daoFactory.getConnection();
-            statement = connexion.prepareStatement("SELECT reference, designation, prix FROM article where reference = ?;");
+            statement = connexion.prepareStatement("SELECT reference, designation, prix FROM article WHERE reference = ?;");
             statement.setString(1, ref);
             resultat = statement.executeQuery();
             
@@ -194,6 +195,8 @@ public class ArticleDaoImpl implements ArticleDao {
 
             preparedStatement.executeUpdate();
             connexion.commit();
+        } catch (SQLIntegrityConstraintViolationException e) {
+        	throw new DaoException("Impossible de supprimer ou de mettre à jour cet article");
         } catch (SQLException e) {
             try {
                 if (connexion != null) {
@@ -201,7 +204,7 @@ public class ArticleDaoImpl implements ArticleDao {
                 }
             } catch (SQLException e2) {
             }
-            throw new DaoException("Impossible de communiquer avec la base de données");
+            throw new DaoException(e.toString());
         }
         finally {
             try {
@@ -209,7 +212,7 @@ public class ArticleDaoImpl implements ArticleDao {
                     connexion.close();  
                 }
             } catch (SQLException e) {
-                throw new DaoException("Impossible de communiquer avec la base de données");
+                throw new DaoException("Impossible de communiquer avec la base de données 2");
             }
         }
 		
